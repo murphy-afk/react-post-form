@@ -6,7 +6,7 @@ const initialFormData = {
   author: '',
   title: '',
   content: '',
-  status: ''
+  status: 'public'
 }
 
 function App() {
@@ -24,9 +24,8 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setPosts(formData)
+    setPosts((current) => [formData, ...current])
     console.log(posts);
-    
   }
 
   return (
@@ -63,10 +62,10 @@ function App() {
               type="radio"
               name="status"
               id="public"
-              className='form-check-input' 
+              className='form-check-input'
               value='public'
               checked={formData.status === 'public'}
-              onChange={updateForm}/>
+              onChange={updateForm} />
           </div>
           <div className="form-check">
             <label htmlFor="draft" className='form-check-label'>Draft</label>
@@ -82,6 +81,19 @@ function App() {
           <button className='btn btn-primary'>Submit</button>
         </form>
       </div>
+      <h2>Posts:</h2>
+      {posts.length > 0 && posts.map((post, index) => (
+        <div className="card" key={index}>
+          <div className="card-body">
+            <span className='card-title'>{post.title}</span>
+            <span
+              className={`badge ${post.status === 'public' ? 'text-bg-success' : 'text-bg-warning'}`}>
+              {post.status === 'public' ? 'Public' : 'Draft'}</span>
+            <p className='card-subtitle mb-2 text-body-secondary'>{post.author}</p>
+            <p className='card-text'>{post.content}</p>
+          </div>
+        </div>
+      ))}
     </>
   )
 }

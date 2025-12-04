@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css'
+import Input from './components/Input';
 
 const initialFormData = {
   author: '',
@@ -33,50 +34,14 @@ function App() {
       <h1>Add a blog post</h1>
       <div className="container">
         <form action="submit" onSubmit={handleSubmit}>
-          <label htmlFor="author" className='form-label'>Author</label>
-          <input
-            type="text"
-            name='author'
-            id='author'
-            className='form-control'
-            value={formData.name}
-            onChange={updateForm} />
-          <label htmlFor="title" className='form-label'>Title</label>
-          <input
-            type="text"
-            name='title'
-            id='title'
-            className='form-control'
-            value={formData.name}
-            onChange={updateForm} />
-          <label htmlFor="content" className='form-label'>Content</label>
-          <textarea
-            name="content"
-            id="content"
-            className='form-control'
-            value={formData.name}
-            onChange={updateForm}></textarea>
-          <div className='form-check'>
-            <label htmlFor="public" className='form-check-label'>Public</label>
-            <input
-              type="radio"
-              name="status"
-              id="public"
-              className='form-check-input'
-              value='public'
-              checked={formData.status === 'public'}
-              onChange={updateForm} />
+          <Input id='author' inputType='text' label='Author' labelClass='form-label' inputClass='form-control' title='author' value={formData.name} onChange={updateForm} />
+          <Input id='title' inputType='text' label='Title' labelClass='form-label' inputClass='form-control' title='title' value={formData.name} onChange={updateForm} />
+          <Input id='content' inputType='text' label='Content' labelClass='form-label' inputClass='form-control' title='content' value={formData.name} onChange={updateForm} />
+          <div className="form-check">
+            <Input id='public' inputType='radio' label='Public' labelClass='form-check-label' inputClass='form-check-input' title='status' value='public' checked={formData.status === 'public'} onChange={updateForm} />
           </div>
           <div className="form-check">
-            <label htmlFor="draft" className='form-check-label'>Draft</label>
-            <input
-              type="radio"
-              name="status"
-              id="draft"
-              className='form-check-input'
-              value='draft'
-              checked={formData.status === 'draft'}
-              onChange={updateForm} />
+            <Input id='draft' inputType='radio' label='Draft' labelClass='form-check-label' inputClass='form-check-input' title='status' value='draft' checked={formData.status === 'draft'} onChange={updateForm} />
           </div>
           <button className='btn btn-primary'>Submit</button>
         </form>
@@ -85,7 +50,7 @@ function App() {
       {posts.length > 0 && posts.map((post, index) => (
         <div className="card" key={index}>
           <div className="card-body">
-            <span className='card-title'>{post.title}</span>
+            <span className='card-title fw-bold pb-1 pe-2'>{post.title}</span>
             <span
               className={`badge ${post.status === 'public' ? 'text-bg-success' : 'text-bg-warning'}`}>
               {post.status === 'public' ? 'Public' : 'Draft'}</span>

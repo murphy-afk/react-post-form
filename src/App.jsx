@@ -11,6 +11,7 @@ const initialFormData = {
 
 function App() {
   const [formData, setFormData] = useState(initialFormData);
+  const [posts, setPosts] = useState('')
 
   function updateForm(event) {
     const key = event.target.name;
@@ -23,7 +24,9 @@ function App() {
 
   function handleSubmit(event) {
     event.preventDefault();
-
+    setPosts(formData)
+    console.log(posts);
+    
   }
 
   return (
